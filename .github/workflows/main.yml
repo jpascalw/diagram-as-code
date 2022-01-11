@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install diagrams
           sleep 10
-          python ./diagram-as-code/eck.py
+          python ./diagram-as-code/advanced-web-service-with-on-premise.py
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
