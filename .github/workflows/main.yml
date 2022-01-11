@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install diagrams
           sleep 10
-          python ./diagrams_as_code/eck.py
+          python ./diagram-as-code/eck.py
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
