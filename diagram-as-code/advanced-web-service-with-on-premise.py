@@ -11,7 +11,7 @@ from diagrams.onprem.queue import Kafka
 with Diagram(name="Advanced Web Service with On-Premise", show=False):
     ingress = Nginx("ingress")
 
-    metrics = Prometheus("metric", fontsize="45")
+    metrics = Prometheus("metric", fontsize="20")
     metrics << Edge(color="firebrick", style="dashed") << Grafana("monitoring")
 
     with Cluster("Service Cluster"):
