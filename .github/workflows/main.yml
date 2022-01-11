@@ -1,0 +1,40 @@
+name: Generate Diagram
+
+on:
+  push:
+    branches:
+      - '**diagram-as-code'
+    paths:
+      - 'diagram-as-code/**.py'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner.
+      - name: Install graphviz  # python diagram dependency to be installed
+        run: sudo apt-get install -y graphviz
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8 #install the python needed
+      - name: execute py script # run the eck.py to get the latest diagram
+        run: |
+          pip install diagrams
+          sleep 10
+          python ./diagram-as-code/advanced-web-service-with-on-premise.py
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git status
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: "New architecture diagram has been generated"
+          branch: "diagram-as-code"
+          commit-message: "New architecture diagram has been generated"
+          labels : "automated pr"
+          assignees: "jpascalw"
