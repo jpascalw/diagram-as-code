@@ -2,10 +2,9 @@ name: Generate Diagram
 
 on:
   push:
-    branches:
-      - '**diagram-as-code'
     paths:
       - 'diagram-as-code/**.py'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +22,7 @@ jobs:
         run: |
           pip install diagrams
           sleep 10
-          python ./diagram-as-code/advanced-web-service-with-on-premise.py
+          for diagramfile in ./diagram-as-code/*.py; do python "$diagramfile"; done
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
