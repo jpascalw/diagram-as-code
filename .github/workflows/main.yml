@@ -5,7 +5,7 @@ on:
     branches:
       - '**diagram-as-code'
     paths:
-      - 'diagrams_as_code/**.py'
+      - 'diagram-as-code/**.py'
 jobs:
   build:
     runs-on: ubuntu-latest
