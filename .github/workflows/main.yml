@@ -10,23 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repo content
+      - name: Checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner.
       - name: Install graphviz  # python diagram dependency to be installed
         run: sudo apt-get install -y graphviz
-      - name: setup python
+      - name: Setup python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8 #install the python needed
-      - name: execute py script # run the eck.py to get the latest diagram
+      - name: Iterate over .py files and execute python script # generate diagrams
         run: |
           pip install diagrams
-          sleep 10
+          sleep 20
           for diagramfile in ./diagram-as-code/*.py; do python "$diagramfile"; done
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git add -A .
           git status
       - uses: gr2m/create-or-update-pull-request-action@v1
         env:
